@@ -1,0 +1,42 @@
+
+//First, make sure your WordPress site has the REST API enabled. You can do this by installing the WordPress REST API plugin.
+//Next, you'll need to send a PUT request to the WordPress REST API endpoint for the specific post you want to update. 
+//You can use the Axios library to make the request, like this:
+
+
+import axios from 'axios';
+
+const updatePost = async (postId, updatedData) => {
+  try {
+    const response = await axios.put(`https://your-wordpress-site.com/wp-json/wp/v2/posts/${postId}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: updatedData
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+//In the above code, postId is the ID of the post you want to update, and updatedData is an object that contains the updated data for the post. 
+//The headers property sets the content type of the request to application/json.
+//Finally, you can call the updatePost function and pass in the post ID and updated data, like this:
+
+const updatedData = {
+  title: 'Updated Post Title',
+  content: 'Updated post content',
+};
+
+updatePost(123, updatedData).then(post => {
+  console.log(post);
+});
+
+//In this example, the updatePost function sends a PUT request to the WordPress REST API endpoint for the post with ID 123, 
+//and updates the post with the provided updatedData. 
+//The updated post data is returned as a response from the API and can be used in your Next.js application as needed.
+
+
